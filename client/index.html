@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>郑州炬坤测控科技有限公司 - 工业机器视觉检测设备专家</title>
+    <meta name="description" content="郑州炬坤测控科技有限公司专注于工业机器视觉检测设备研发与生产，为制造业客户提供高精度、智能化的质量检测解决方案">
+    <meta name="keywords" content="机器视觉,工业检测,AI算法,自动化控制,质量检测,缺陷检测,尺寸测量,视觉检测设备">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="郑州炬坤测控科技有限公司 - 工业机器视觉检测设备专家">
+    <meta property="og:description" content="专注工业机器视觉检测设备研发与生产，为制造业客户提供高精度、智能化的质量检测解决方案">
+    <meta property="og:image" content="/LOGO.png">
+    <meta property="og:locale" content="zh_CN">
+
+    <!-- 百度统计占位 - 请替换为实际统计代码 -->
+    <!-- <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?YOUR_ID";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);})();</script> -->
+
+    <style>
+      /* 页面加载动画 */
+      #app-loading {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0a0e27;
+        transition: opacity 0.5s ease;
+      }
+      #app-loading.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .loader {
+        width: 48px;
+        height: 48px;
+        border: 3px solid rgba(255,255,255,0.2);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app-loading">
+      <div class="loader"></div>
+    </div>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      window.addEventListener('load', function() {
+        var el = document.getElementById('app-loading');
+        if (el) {
+          el.classList.add('fade-out');
+          setTimeout(function() { el.remove(); }, 500);
+        }
+      });
+    </script>
+  </body>
+</html>
