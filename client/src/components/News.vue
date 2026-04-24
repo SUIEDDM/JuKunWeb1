@@ -45,7 +45,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getNewsList } from '../api/news'
 
 const newsList = ref([])
 const loading = ref(true)
@@ -57,10 +56,10 @@ const formatDate = (dateStr) => {
 
 onMounted(async () => {
   try {
-    const res = await getNewsList()
-    if (res.success) {
-      newsList.value = res.data
-    }
+    // 读取静态JSON数据（用于GitHub Pages部署）
+    const res = await fetch('/data/news.json')
+    const data = await res.json()
+    newsList.value = data
   } catch (error) {
     console.error('获取新闻失败:', error)
   } finally {

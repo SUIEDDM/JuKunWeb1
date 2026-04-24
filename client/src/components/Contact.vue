@@ -189,7 +189,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useToastStore } from '../stores/toast'
-import { submitContact } from '../api/contact'
 
 const toast = useToastStore()
 
@@ -202,6 +201,11 @@ const form = reactive({
 
 const errors = ref({})
 const isSubmitting = ref(false)
+const isSubmitted = ref(false)
+
+// Formspree 表单端点（请替换为你自己的 endpoint）
+// 注册 https://formspree.io/ 获取免费 endpoint
+const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'
 
 const validateForm = () => {
   errors.value = {}
@@ -235,20 +239,32 @@ const handleSubmit = async () => {
   isSubmitting.value = true
 
   try {
-    await submitContact({
-      name: form.name,
-      phone: form.phone,
-      email: form.email,
-      message: form.message
+    const response = await fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: form.name,
+        phone: form.phone,
+        email: form.email,
+        message: form.message
+      })
     })
 
-    toast.success('提交成功', '感谢您的留言！我们会尽快与您联系。')
-    form.name = ''
-    form.phone = ''
-    form.email = ''
-    form.message = ''
+    if (response.ok) {
+      isSubmitted.value = true
+      toast.success('提交成功', '感谢您的留言！我们会尽快与您联系。')
+      form.name = ''
+      form.phone = ''
+      form.email = ''
+      form.message = ''
+    } else {
+      throw new Error('提交失败')
+    }
   } catch (error) {
-    toast.error('提交失败', error.message || '请稍后重试或直接拨打电话联系我们。')
+    toast.error('提交失败', '请稍后重试或直接拨打电话联系我们。')
   } finally {
     isSubmitting.value = false
   }
